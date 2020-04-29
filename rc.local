@@ -17,12 +17,12 @@ if [ "$_IP" ]; then
   printf "My IP address is %s\n" "$_IP"
 fi
 
-serverslist=https://raw.githubusercontent.com/admsteck/steckcraft-phantom-pi/master/steckcraft-servers
+serverlist=https://raw.githubusercontent.com/admsteck/steckcraft-phantom-pi/master/server-list
 phantomversion=$(curl https://raw.githubusercontent.com/admsteck/steckcraft-phantom-pi/master/phantom-version)
 
 wget https://github.com/jhead/phantom/releases/download/$phantomversion/phantom-linux-arm6 -O /usr/local/bin/phantom-linux-arm6
 chmod u+x /usr/local/bin/phantom-linux-arm6
-curl $serverslist | while IFS="," read -a line || [[ -n $line ]]; 
+curl $serverlist | while IFS="," read -a line || [[ -n $line ]]; 
 do
   echo "Connecting to ${line[0]} at ${line[1]}";
   screen -dmS "${line[0]}" /usr/local/bin/phantom-linux-arm6 -server ${line[1]};
